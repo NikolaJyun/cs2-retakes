@@ -1,14 +1,17 @@
-﻿{
-  "retakes.prefix": "[[GREEN]Retakes[NORMAL]] ",
-  
-  "retakes.queue.joined": "您已被放入等待佇列。",
-  "retakes.queue.waiting": "遊戲目前已滿，共有[GREEN]{0}[NORMAL]名玩家。您正在等待佇列中。",
-  
-  "retakes.bombsite.announcement": "回防[GREEN]{0}[NORMAL]炸彈點：[LIGHT_RED]{1}名恐怖份子[NORMAL]對陣[PURPLE]{2}名反恐小组",
-  
-  "retakes.teams.scramble": "T連續贏得[GREEN]{0}[NORMAL]個回合。[PURPLE]正在重新打亂隊伍！",
-  "retakes.teams.almost_scramble": "T連續贏得[GREEN]{0}[NORMAL]個回合 - 如果他們再贏[GREEN]{1}個回合，[PURPLE]將重新打亂隊伍。",
-  "retakes.teams.win_streak": "T連續贏得[GREEN]{0}[NORMAL]個回合！",
-  "retakes.teams.win_streak_over": "CT結束了[GREEN]{0}[NORMAL]個回合的連勝！",
-  "retakes.teams.admin_scramble": "{0}已設定下一回合重新打亂隊伍。"
+{
+  "retakes.prefix": "[[GREEN]Retakes[NORMAL]] ",
+  
+  "retakes.queue.joined": "你已進入等待隊列。",
+  "retakes.queue.waiting": "遊戲目前已滿，有 [GREEN]{0}[NORMAL] 名玩家。您在等待隊列中。",
+  "retakes.queue.replaced_by_vip": "你已被 VIP 玩家 [GREEN]{0}[NORMAL] 取代。",
+  "retakes.queue.vip_took_place": "你已取代 [GREEN]{0}[NORMAL] 在遊戲中的位置。",
+
+  "retakes.bombsite.announcement": "回防 [GREEN]{0}[NORMAL]： [LIGHT_RED]{1} 名 T[NORMAL] vs [PURPLE]{2} 名 CT",
+  "retakes.voices.toggle": "你已{0}語音播報！",
+  
+  "retakes.teams.scramble": "恐怖份子連續贏了 [GREEN]{0}[NORMAL] 回合。[PURPLE]隊伍將被重組！",
+  "retakes.teams.almost_scramble": "恐怖份子已連續贏了 [GREEN]{0}[NORMAL] 回合 - 如果他們再贏 [GREEN]{1} 回合，[PURPLE]隊伍將被重組。",
+  "retakes.teams.win_streak": "恐怖份子已連續贏了 [GREEN]{0}[NORMAL] 回合！",
+  "retakes.teams.win_streak_over": "反恐小組終結了恐怖份子 [GREEN]{0}[NORMAL] 回合的連勝紀錄！",
+  "retakes.teams.admin_scramble": "{0} 已設定隊伍將在下一回合重組。"
 }
