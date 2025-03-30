@@ -1,0 +1,81 @@
+name: Build RetakesPlugin
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - '**.cs'
+      - '**.csproj'
+  pull_request:
+    branches: [ "master" ]
+    paths:
+      - '**.cs'
+      - '**.csproj'
+  release:
+    types:
+      - created
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Change directory and build
+        run: |
+          cd RetakesPlugin
+          dotnet build
+      - name: Create output directory
+        run: |
+          mkdir -p output/RetakesPlugin
+          mv ./RetakesPlugin/bin/Debug/net8.0/RetakesPlugin.dll output/RetakesPlugin/
+          mv ./RetakesPlugin/bin/Debug/net8.0/RetakesPlugin.pdb output/RetakesPlugin/
+          mv ./RetakesPlugin/map_config output/RetakesPlugin/
+          mv ./RetakesPlugin/lang output/RetakesPlugin/
+      - name: Copy output (no map configs)
+        run: |
+          cp -r output/ output-no-map-configs/
+          rm -rf output-no-map-configs/RetakesPlugin/map_config
+      - name: Publish artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RetakesPlugin-${{ github.sha }}
+          path: output
+      - name: Publish artifact (no map configs)
+        uses: actions/upload-artifact@v4
+        with:
+          name: RetakesPlugin-${{ github.sha }}-no-map-configs
+          path: output-no-map-configs
+  
+  release:
+    needs: build
+    permissions: write-all
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release'
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: RetakesPlugin-${{ github.sha }}
+
+      - name: Create release assets
+        run: |
+          zip -r cs2-retakes-${{ github.event.release.tag_name }}.zip ./RetakesPlugin
+          rm -rf ./RetakesPlugin/map_config
+          zip -r cs2-retakes-${{ github.event.release.tag_name }}-no-map-configs.zip ./RetakesPlugin
+
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ./cs2-retakes-${{ github.event.release.tag_name }}.zip
+            ./cs2-retakes-${{ github.event.release.tag_name }}-no-map-configs.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
